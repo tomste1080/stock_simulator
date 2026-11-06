@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PriceTickService {
-    private final PriceTickService priceTickService;
+    private final PriceTickRepository priceTickRepository;
 
-    public PriceTickService(PriceTickService priceTickService) {
-        this.priceTickService = priceTickService;
+    public PriceTickService(PriceTickRepository priceTickRepository) {
+        this.priceTickRepository = priceTickRepository;
     }
 }

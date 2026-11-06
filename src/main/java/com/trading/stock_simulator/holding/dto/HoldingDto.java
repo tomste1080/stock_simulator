@@ -1,5 +1,6 @@
 package com.trading.stock_simulator.holding.dto;
 
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ public class HoldingDto {
     private BigDecimal quantity;
     private BigDecimal averageBuyPrice;
     private Long assetId;
-    BigDecimal currentPrice;
-    BigDecimal currentValue;
-    BigDecimal profitLoss;
+    private BigDecimal currentPrice;
+    private BigDecimal currentValue;
+    private BigDecimal profitLoss;
 }

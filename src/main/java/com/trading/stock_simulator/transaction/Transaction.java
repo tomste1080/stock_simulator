@@ -24,7 +24,7 @@ public class Transaction {
     private BigDecimal quantity;
     private BigDecimal price;
     @Column(name = "created_at")
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
     @ManyToOne
     @JoinColumn(name = "users_id")
     private User user;
