@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class HoldingDto {
     private Long id;
+    private String symbol;
     private BigDecimal quantity;
     private BigDecimal averageBuyPrice;
     private Long assetId;
