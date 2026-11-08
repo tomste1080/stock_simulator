@@ -1,9 +1,12 @@
 package com.trading.stock_simulator.market;
 
 import com.trading.stock_simulator.asset.Asset;
+import com.trading.stock_simulator.asset.AssetDtoMapper;
 import com.trading.stock_simulator.asset.AssetRepository;
+import com.trading.stock_simulator.asset.dto.AssetDto;
 import com.trading.stock_simulator.price_tick.PriceTick;
 import com.trading.stock_simulator.price_tick.PriceTickRepository;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,14 +21,18 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PriceSimulator {
     private final AssetRepository assetRepository;
     private final PriceTickRepository priceTickRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public PriceSimulator(AssetRepository assetRepository, PriceTickRepository priceTickRepository) {
+    public PriceSimulator(AssetRepository assetRepository,
+                          PriceTickRepository priceTickRepository,
+                          ApplicationEventPublisher applicationEventPublisher) {
         this.assetRepository = assetRepository;
         this.priceTickRepository = priceTickRepository;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Transactional
-    @Scheduled(fixedRate = 5000000)
+    @Scheduled(fixedRate = 25000)
     public void updatePrices() {
         List<Asset> assets = assetRepository.findAll();
         LocalDateTime now = LocalDateTime.now();
@@ -39,6 +46,10 @@ public class PriceSimulator {
             priceTick.setTimestamp(now);
             priceTickRepository.save(priceTick);
         }
+        List<AssetDto> updatedAssets = assets.stream()
+                .map(AssetDtoMapper::toDto)
+                .toList();
+        applicationEventPublisher.publishEvent(new PricesUpdatedEvent(updatedAssets));
     }
 
     private BigDecimal calculateNewPrice(BigDecimal currentPrice) {
