@@ -32,7 +32,7 @@ public class PriceSimulator {
     }
 
     @Transactional
-    @Scheduled(fixedRate = 25000)
+    @Scheduled(fixedRate = 10000)
     public void updatePrices() {
         List<Asset> assets = assetRepository.findAll();
         LocalDateTime now = LocalDateTime.now();
@@ -53,7 +53,7 @@ public class PriceSimulator {
     }
 
     private BigDecimal calculateNewPrice(BigDecimal currentPrice) {
-        double change = ThreadLocalRandom.current().nextDouble(-0.01, 0.05);
+        double change = ThreadLocalRandom.current().nextDouble(-0.01, 0.01);
         BigDecimal changeRate = BigDecimal.valueOf(1 + change);
         return changeRate.multiply(currentPrice).setScale(4, RoundingMode.HALF_UP);
     }
