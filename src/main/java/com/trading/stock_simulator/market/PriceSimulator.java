@@ -53,7 +53,7 @@ public class PriceSimulator {
     }
 
     private BigDecimal calculateNewPrice(BigDecimal currentPrice) {
-        double change = ThreadLocalRandom.current().nextDouble(-0.01, 0.01);
+        double change = ThreadLocalRandom.current().nextDouble(-0.01, 0.05);
         BigDecimal changeRate = BigDecimal.valueOf(1 + change);
         return changeRate.multiply(currentPrice).setScale(4, RoundingMode.HALF_UP);
     }
