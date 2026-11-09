@@ -1,5 +1,6 @@
 package com.trading.stock_simulator.order;
 
+import com.trading.stock_simulator.order.dto.CreateOrderDto;
 import com.trading.stock_simulator.order.dto.OrderDto;
 
 public class OrderDtoMapper {
@@ -14,5 +15,13 @@ public class OrderDtoMapper {
         orderDto.setCreatedAt(order.getCreatedAt());
         orderDto.setExecutedAt(order.getExecutedAt());
         return orderDto;
+    }
+
+    static Order toEntity(CreateOrderDto dto) {
+        Order order = new Order();
+        order.setOrderType(dto.getOrderType());
+        order.setTriggerPrice(dto.getTriggerPrice());
+        order.setQuantity(dto.getQuantity());
+        return order;
     }
 }

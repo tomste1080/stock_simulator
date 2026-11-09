@@ -28,4 +28,11 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(e.getMessage());
     }
+
+    @ExceptionHandler(InvalidOrderStateException.class)
+    public ResponseEntity<String> handleInvalidOrderStateException(InvalidOrderStateException e) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(e.getMessage());
+    }
 }

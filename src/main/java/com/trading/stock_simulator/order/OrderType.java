@@ -1,5 +1,5 @@
 package com.trading.stock_simulator.order;
 
 public enum OrderType {
-    STOP_LOSS, TAKE_PROFIT
+    STOP_LOSS, TAKE_PROFIT, LIMIT_BUY
 }

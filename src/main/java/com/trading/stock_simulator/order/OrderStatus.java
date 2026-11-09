@@ -1,5 +1,5 @@
 package com.trading.stock_simulator.order;
 
 public enum OrderStatus {
-    ACTIVE, EXECUTED, CANCELLED
+    ACTIVE, EXECUTED, CANCELLED, FAILED
 }
